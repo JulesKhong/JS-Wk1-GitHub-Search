@@ -12,26 +12,28 @@
     <script type="text/javascript" src="build/js/app.js"></script>
     <title>GitSearch</title>
   </head>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <h1>GitSearch</h1>
+          <h5>A place to explore GitHub respositories</h5>
+        </div>
+        <form id="search-form" class="navbar-form navbar-right" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search by username" id="username">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+    </nav>
   <body>
     <div class="container">
-      <h1>GitSearch</h1>
-      <form class="form-group" id="search-form">
-        <label for="current-location">Search by username:</label>
-        <input type="text" class="form-control" id="username">
-        <button class="btn btn-default" type="submit">Search</button>
-      </form>
-      <hr>
-      <!-- <form id="search-man" class="form-group">
-        <label>Search for Bikes By Manufacturer</label>
-        <input id="manufacturer" class="form-control" type="text">
-        <button name="submit" class="btn btn-default">Search</button>
-      </form> -->
+      <div id="banner" class="row">
+        <img src="./../img/womenWhoCodeMapbox.jpg">
+    </div>
       <div class="row">
         <div class="col-sm-9" id="results">
-          <!-- <button class="btn btn-default" id="previous">Previous</button>
-          <button class="btn btn-default" id="next">Next</button> -->
           <div id="showPhoto">
-
           </div>
           <h3 id="userName"></h3>
           <h5 id="userRepo"></h5>

@@ -1,3 +1,18 @@
+#banner img {
+  width: 100%;
+  height: auto;
+  opacity: 0.9;
+}
+
+#banner {
+  height: 400px;
+  margin-top: 20px;
+}
+
+.navbar {
+  background: #0C2537;
+}
+
 .each_repo {
   margin: 2em;
   border-radius: 2%;
@@ -5,6 +20,35 @@
   padding: 2em;
   height: 200px;
 
+}
+
+.results {
+  margin: 2em;
+  padding: 2em;
+}
+
+.navbar-header {
+  padding-left: 5em;
+}
+
+.navbar-form {
+  padding-right: 5em;
+  padding-top: 2.5em;
+}
+
+h1 {
+  color: white;
+}
+
+h5 {
+  line-height: 1em;
+  margin-bottom: 2em;
+  color: white;
+  letter-spacing: .5px;
+  font-weight: normal;
+}
+input:active {
+  background: white;
 }
 
 img {

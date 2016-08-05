@@ -18,7 +18,7 @@ Search.prototype.search = function(user, displayPhoto, displayResults) {
 
 function getRepoInfo(user, displayResults, repoLink) {
   $.get(repoLink).then(function(response) {
-    // console.log(response);
+    console.log(response);
     displayResults(user, response);
   });
 }
