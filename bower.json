@@ -1,0 +1,23 @@
+{
+  "name": "api github",
+  "description": "",
+  "main": "gulpfile.js",
+  "license": "ISC",
+  "homepage": "https://github.com/JuliaDickey/JS-Wk1-GitHub-Search.git",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "bootstrap": "^3.3.7",
+    "moment": "^2.14.1"
+  },
+  "authors": [
+    "Julia Dickey <julia.dickey@gmail.com>"
+  ]
+}

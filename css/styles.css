@@ -1,0 +1,44 @@
+.each_bike {
+  margin: 2em;
+  border-radius: 2%;
+  border: 2px solid #f0f0f0;
+  padding: 2em;
+
+}
+
+img {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+.li-div {
+  height: 30px;
+}
+
+.btn-default {
+  margin-top: 10px;
+}
+
+label {
+  margin-top: 1em;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  height: 400px;
+}
+#next {
+  display: none;
+}
+#previous {
+  display: none;
+}
