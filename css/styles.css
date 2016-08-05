@@ -1,8 +1,9 @@
-.each_bike {
+.each_repo {
   margin: 2em;
   border-radius: 2%;
   border: 2px solid #f0f0f0;
   padding: 2em;
+  height: 130px;
 
 }
 
