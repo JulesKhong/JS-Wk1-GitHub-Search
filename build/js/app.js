@@ -6,31 +6,25 @@ var apiKey = require('./../.env').apiKey;
 function Search() {
 }
 
-Search.prototype.search = function(user, displayResult) {
+Search.prototype.search = function(user, displayResults) {
   $.get('https://api.github.com/users/' + user + '?access_token=' + apiKey ).then( function(response) {
     console.log(response);
-    displayResult(user, response);
+    console.log(displayResults);
+    getRepoInfo(user, displayResults, response.repos_url);
   }).fail(function(error) {
     $('#showResults').text(error.responseJSON.message);
   });
 };
 
-// Search.prototype.searchNext = function(zip, radius, displayStolen) {
-//   page += 1;
-//   $.get('https://bikeindex.org:443/api/v2/bikes_search/stolen?page='+ page +'&per_page=25&proximity= '+ zip +'&proximity_square=' + radius).then( function(response) {
-//     displayStolen(zip, radius, response);
-//   }).fail(function(error) {
-//     $('#showResults').text(error.responseJSON.message);
-//   });
-// };
-// Search.prototype.searchPrevious = function(zip, radius, displayStolen) {
-//   page -= 1;
-//   $.get('https://bikeindex.org:443/api/v2/bikes_search/stolen?page='+ page +'&per_page=25&proximity= '+ zip +'&proximity_square=' + radius).then( function(response) {
-//     displayStolen(zip, radius, response);
-//   }).fail(function(error) {
-//     $('#showResults').text(error.responseJSON.message);
-//   });
-// };
+function getRepoInfo(user, displayResults, repoLink) {
+  $.get(repoLink).then(function(response) {
+    console.log(response);
+    displayResults(user, response);
+  }).fail(function(error) {
+    $('#showResults').text(error.responseJSON.message);
+  });
+}
+
 
 exports.searchModule = Search;
 
@@ -46,6 +40,18 @@ var Search = require('./../js/search.js').searchModule;
 
 $(document).ready( function() {
 
+  var displayResults = function(user, results) {
+    $('#userName').text(user + "'s respositories:");
+    $('#results').append('<img src=' + user.avatar_url + '>');
+    $('#showResults').empty();
+    $('#searchNumber').text(results.length);
+    results.forEach(function(repo){
+      $('#showResults').append("<div class='col-sm-3 each_repo'><div class='li-div'><li>" + repo.name +"</li></div></div>");
+      console.log(repo.description);
+      console.log(repo.created_at);
+    });
+  };
+
   var newSearch = new Search();
   $('#search-form').submit( function(event) {
     event.preventDefault();
@@ -58,28 +64,5 @@ $(document).ready( function() {
     newSearch.searchPrevious(zip, radius, displayStolen);
   });
 });
-
-var displayResults = function(user, results) {
-  $('#userName').text(user + "'s respositories:");
-  console.log(user.avatar_url);
-  $('#results').append('<img src=' + user.avatar_url + '>')
-  $('#showResults').empty();
-  // results.user.forEach(function(bike){
-  //   if (user.thumb){
-  //     $('#showResults').append("<div class='col-sm-3 each_bike'><img src=" + user.thumb + "><div class='li-div'><li>" + user.title +"</li></div></div>");
-  //   }
-    $('#searchCriteria').text(user);
-  // });
-};
-
-// var displayStolen = function(zip, radius, results) {
-//   $('#showResults').empty();
-//   results.bikes.forEach(function(bike) {
-//     if (bike.thumb){
-//       $('#showResults').append("<div class='col-sm-3 each_bike'><img src=" + bike.thumb + "><div class='li-div'><li>" + bike.title +"</li></div></div>");
-//     }
-//     $('#searchCriteria').text('There are  ' + results.bikes.length + ' bikes stolen within ' + radius + ' miles of the zipcode ' + zip + '.');
-//   });
-// };
 
 },{"./../js/search.js":2}]},{},[3]);
