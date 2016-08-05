@@ -10,26 +10,31 @@ $(document).ready( function() {
     newSearch.search(user, displayResults);
   });
 
-    $('#previous').click(function(event){
-      event.preventDefault();
-      newSearch.searchPrevious(zip, radius, displayStolen);
-    });
+  $('#previous').click(function(event){
+    event.preventDefault();
+    newSearch.searchPrevious(zip, radius, displayStolen);
   });
 });
 
-
-
-
-
 var displayResults = function(user, results) {
-  console.log(results.user);
+  $('#userName').text(user + "'s respositories:");
+  console.log(user.avatar_url);
+  $('#results').append('<img src=' + user.avatar_url + '>')
   $('#showResults').empty();
-  results.user.forEach(function(bike){
-    if (user.thumb){
-      $('#showResults').append("<div class='col-sm-3 each_bike'><img src=" + user.thumb + "><div class='li-div'><li>" + user.title +"</li></div></div>");
-    }
-    $('#searchCriteria').text("Bikes made by " + manufacturer + ":");
-  });
+  // results.user.forEach(function(bike){
+  //   if (user.thumb){
+  //     $('#showResults').append("<div class='col-sm-3 each_bike'><img src=" + user.thumb + "><div class='li-div'><li>" + user.title +"</li></div></div>");
+  //   }
+    $('#searchCriteria').text(user);
+  // });
 };
-//
-user
+
+// var displayStolen = function(zip, radius, results) {
+//   $('#showResults').empty();
+//   results.bikes.forEach(function(bike) {
+//     if (bike.thumb){
+//       $('#showResults').append("<div class='col-sm-3 each_bike'><img src=" + bike.thumb + "><div class='li-div'><li>" + bike.title +"</li></div></div>");
+//     }
+//     $('#searchCriteria').text('There are  ' + results.bikes.length + ' bikes stolen within ' + radius + ' miles of the zipcode ' + zip + '.');
+//   });
+// };

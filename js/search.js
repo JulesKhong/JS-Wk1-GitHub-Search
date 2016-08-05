@@ -2,9 +2,10 @@ var apiKey = require('./../.env').apiKey;
 function Search() {
 }
 
-Search.prototype.searchManufacturer = function(user, displayResult) {
-  $.get('https://bikeindex.org:443/api/v2/bikes_search/non_stolen?page=1&manufacturer=' + user ).then( function(response) {
-    displayResult(manu, response);
+Search.prototype.search = function(user, displayResult) {
+  $.get('https://api.github.com/users/' + user + '?access_token=' + apiKey ).then( function(response) {
+    console.log(response);
+    displayResult(user, response);
   }).fail(function(error) {
     $('#showResults').text(error.responseJSON.message);
   });
