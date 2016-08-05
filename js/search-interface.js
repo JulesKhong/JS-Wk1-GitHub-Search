@@ -1,27 +1,31 @@
 var Search = require('./../js/search.js').searchModule;
-var apiKey = require('./../.env').apiKey;
 
 
 $(document).ready( function() {
 
   var displayResults = function(user, results) {
-    $('#userName').text(user + " has " + results.length + " respositories:");
+    console.log(results);
+    $('#userName').text(user);
+    $('#userRepo').text(user + " has " + results.length + " respositories available:");
     $('#showResults').empty();
-    console.log(results.avatar_url);
-    $('#showPhoto').prepend("<img src='" + results.avatar_url + "'/>");
+    var counter = 0;
     results.forEach(function(repo){
-      $('#showResults').append("<div class='col-sm-3 each_repo'><div class='li-div'><li><b><a href=" + repo.clone_url + ">" + repo.name +"</a></b></li><ul><li>" + repo.description + "</li><li>" + repo.created_at + "</li></ul></div></div>");
+      $('#counter').text(counter += 1);
+      $('#showResults').append("<div class='col-sm-3 each_repo'><div id='counter'>" + counter + "</div><div class='li-div'><li><b><a href=" + repo.clone_url + ">" + repo.name +"</a></b></li><ul><li>" + repo.description + "</li><li>" + repo.created_at + "</li></ul></div></div>");
     });
+    counter = 0;
   };
 
-  var displayPhoto = function(photo) {
+  var displayPhoto = function(photoUrl) {
+    $('#showPhoto').empty();
+    $('#showPhoto').prepend("<img src='" + photoUrl + "'/>");
   };
 
   var newSearch = new Search();
   $('#search-form').submit( function(event) {
     event.preventDefault();
     var user = $('#username').val();
-    newSearch.search(user, displayResults);
+    newSearch.search(user, displayPhoto, displayResults);
   });
 
   $('#previous').click(function(event){

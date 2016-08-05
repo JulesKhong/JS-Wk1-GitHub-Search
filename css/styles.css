@@ -3,29 +3,26 @@
   border-radius: 2%;
   border: 2px solid #f0f0f0;
   padding: 2em;
-  height: 130px;
+  height: 200px;
 
 }
 
 img {
   width: 100%;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 li {
   list-style: none;
 }
 
-.li-div {
-  height: 30px;
-}
-
 .btn-default {
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 label {
-  margin-top: 1em;
+  margin-top: 40px;
 }
 
 html, body {
@@ -34,12 +31,14 @@ html, body {
   padding: 0;
 }
 
-#map {
-  height: 400px;
+img {
+  width: 200px;
+  margin-top: 20px;
 }
-#next {
-  display: none;
-}
-#previous {
-  display: none;
+
+#counter {
+  margin-bottom: 1em;
+  font-weight: bolder;
+  font-size: 2em;
+  color: #f2f2f2;
 }

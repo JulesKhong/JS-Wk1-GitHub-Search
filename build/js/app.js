@@ -3,12 +3,14 @@ exports.apiKey = "7ec433f22eadf23e47c49f490c0cedb851a10eff";
 
 },{}],2:[function(require,module,exports){
 var apiKey = require('./../.env').apiKey;
+
 function Search() {
 }
 
-Search.prototype.search = function(user, displayResults) {
-  $.get('https://api.github.com/users/' + user + '?access_token=' + apiKey ).then( function(response) {
+Search.prototype.search = function(user, displayPhoto, displayResults) {
+  $.get('https://api.github.com/users/' + user + '?access_token='+ apiKey ).then( function(response) {
     getRepoInfo(user, displayResults, response.repos_url);
+    displayPhoto(response.avatar_url);
   }).fail(function(error) {
     $('#showResults').text(error.responseJSON.message);
   });
@@ -16,10 +18,8 @@ Search.prototype.search = function(user, displayResults) {
 
 function getRepoInfo(user, displayResults, repoLink) {
   $.get(repoLink).then(function(response) {
-    console.log(response);
+    // console.log(response);
     displayResults(user, response);
-  }).fail(function(error) {
-    $('#showResults').text(error.responseJSON.message);
   });
 }
 
@@ -33,29 +33,33 @@ exports.searchModule = Search;
 // };
 
 var Search = require('./../js/search.js').searchModule;
-var apiKey = require('./../.env').apiKey;
 
 
 $(document).ready( function() {
 
   var displayResults = function(user, results) {
-    $('#userName').text(user + " has " + results.length + " respositories:");
+    console.log(results);
+    $('#userName').text(user);
+    $('#userRepo').text(user + " has " + results.length + " respositories available:");
     $('#showResults').empty();
-    console.log(results.avatar_url);
-    $('#showPhoto').prepend("<img src='" + results.avatar_url + "'/>");
+    var counter = 0;
     results.forEach(function(repo){
-      $('#showResults').append("<div class='col-sm-3 each_repo'><div class='li-div'><li><b><a href=" + repo.clone_url + ">" + repo.name +"</a></b></li><ul><li>" + repo.description + "</li><li>" + repo.created_at + "</li></ul></div></div>");
+      $('#counter').text(counter += 1);
+      $('#showResults').append("<div class='col-sm-3 each_repo'><div id='counter'>" + counter + "</div><div class='li-div'><li><b><a href=" + repo.clone_url + ">" + repo.name +"</a></b></li><ul><li>" + repo.description + "</li><li>" + repo.created_at + "</li></ul></div></div>");
     });
+    counter = 0;
   };
 
-  var displayPhoto = function(photo) {
+  var displayPhoto = function(photoUrl) {
+    $('#showPhoto').empty();
+    $('#showPhoto').prepend("<img src='" + photoUrl + "'/>");
   };
 
   var newSearch = new Search();
   $('#search-form').submit( function(event) {
     event.preventDefault();
     var user = $('#username').val();
-    newSearch.search(user, displayResults);
+    newSearch.search(user, displayPhoto, displayResults);
   });
 
   $('#previous').click(function(event){
@@ -64,4 +68,4 @@ $(document).ready( function() {
   });
 });
 
-},{"./../.env":1,"./../js/search.js":2}]},{},[3]);
+},{"./../js/search.js":2}]},{},[3]);
