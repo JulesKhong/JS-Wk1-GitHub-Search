@@ -4,7 +4,7 @@ function Search() {
 }
 
 Search.prototype.search = function(user, displayPhoto, displayResults) {
-  $.get('https://api.github.com/users/' + user + '?access_token='+ apiKey ).then( function(response) {
+  $.get('https://api.github.com/users/' + user + '?access_token='+ apiKey + '&per_page=100' ).then( function(response) {
     getRepoInfo(user, displayResults, response.repos_url);
     displayPhoto(response.avatar_url);
   }).fail(function(error) {
@@ -14,7 +14,6 @@ Search.prototype.search = function(user, displayPhoto, displayResults) {
 
 function getRepoInfo(user, displayResults, repoLink) {
   $.get(repoLink).then(function(response) {
-    console.log(response);
     displayResults(user, response);
   });
 }

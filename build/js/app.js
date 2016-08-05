@@ -8,7 +8,7 @@ function Search() {
 }
 
 Search.prototype.search = function(user, displayPhoto, displayResults) {
-  $.get('https://api.github.com/users/' + user + '?access_token='+ apiKey ).then( function(response) {
+  $.get('https://api.github.com/users/' + user + '?access_token='+ apiKey + '&per_page=100' ).then( function(response) {
     getRepoInfo(user, displayResults, response.repos_url);
     displayPhoto(response.avatar_url);
   }).fail(function(error) {
@@ -18,7 +18,6 @@ Search.prototype.search = function(user, displayPhoto, displayResults) {
 
 function getRepoInfo(user, displayResults, repoLink) {
   $.get(repoLink).then(function(response) {
-    console.log(response);
     displayResults(user, response);
   });
 }
@@ -34,18 +33,20 @@ exports.searchModule = Search;
 
 var Search = require('./../js/search.js').searchModule;
 
-
 $(document).ready( function() {
 
   var displayResults = function(user, results) {
-    console.log(results);
     $('#userName').text(user);
     $('#userRepo').text(user + " has " + results.length + " respositories available:");
     $('#showResults').empty();
     var counter = 0;
     results.forEach(function(repo){
       $('#counter').text(counter += 1);
-      $('#showResults').append("<div class='col-sm-3 each_repo'><div id='counter'>" + counter + "</div><div class='li-div'><li><b><a href=" + repo.clone_url + ">" + repo.name +"</a></b></li><ul><li>" + repo.description + "</li><li>" + repo.created_at + "</li></ul></div></div>");
+      if(repo.description){
+        $('#showResults').append("<div class='col-sm-3 each_repo'><div id='counter'>" + counter + "</div><div class='li-div'><li><b><a href=" + repo.clone_url + ">" + repo.name.toLowerCase() +"</a></b></li><li>" + repo.description + "</li><hr><li>Created:<br><em>" + moment(repo.created_at).format("MMMM Do, YYYY") + "</em></li></div></div>");
+      } else {
+          $('#showResults').append("<div class='col-sm-3 each_repo'><div id='counter'>" + counter + "</div><div class='li-div'><li><b><a href=" + repo.clone_url + ">" + repo.name.toLowerCase() +"</a></b></li><li>A development exercise</li><hr><li>Created:<br><em>" + moment(repo.created_at).format("MMMM Do, YYYY") + "</em></li></div></div>");
+        }
     });
     counter = 0;
   };
@@ -57,15 +58,16 @@ $(document).ready( function() {
 
   var newSearch = new Search();
   $('#search-form').submit( function(event) {
+    $('#banner').hide();
     event.preventDefault();
     var user = $('#username').val();
     newSearch.search(user, displayPhoto, displayResults);
   });
 
-  $('#previous').click(function(event){
-    event.preventDefault();
-    newSearch.searchPrevious(zip, radius, displayStolen);
+  $('#refresh').click(function(event){
+    location.reload();
   });
+
 });
 
 },{"./../js/search.js":2}]},{},[3]);
